@@ -1,3 +1,10 @@
+import pymongo
+
+#database
+client = pymongo.MongoClient("mongodb://localhost:27017/")
+db = client["mnc_db"]
+office = db['country']
+
 # Office class
 class Office:
     # Class variable
@@ -11,6 +18,13 @@ class Office:
         self.office_city = city
         self.office_state = state
         self.office_zip_code = zip_code
+        self.data = {"_id":self.office_id,
+                     "name":self.office_name,
+                     "address":self.office_address,
+                     "city":self.office_city,
+                     "state":self.office_state,
+                     "zip_code":self.office_zip_code}
+        office.insert_one(self.data)
 
     # Generate unique office ID
     @classmethod
