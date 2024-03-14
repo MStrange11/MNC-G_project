@@ -26,6 +26,14 @@ class Office:
                      "zip_code":self.office_zip_code}
         office.insert_one(self.data)
 
+    def __del__(self):
+        office.delete_one({"_id":self.office_id})
+
+    def display(self):
+        all_offices=office.find()
+        for off in all_offices:
+            print(off)
+
     # Generate unique office ID
     @classmethod
     def generate_office_id(cls):
